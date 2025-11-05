@@ -52,7 +52,8 @@ class Config {
                 synthesis: 'You are an expert analyst who synthesizes complex information into clear, actionable insights. You always respond with valid JSON only.',
                 hypothesis: 'You critically evaluate hypotheses using structured evidence. ALWAYS respond with valid JSON.',
                 executiveSummary: 'You craft crisp executive summaries from consulting deliverables.'
-            }
+            },
+            executiveSummaryPrompt: ''
         };
 
         // Try to load existing settings and merge with defaults
@@ -68,7 +69,8 @@ class Config {
                     apis: { ...defaults.apis, ...loaded.apis },
                     mcps: loaded.mcps || defaults.mcps,
                     rag: { ...defaults.rag, ...loaded.rag },
-                    prompts: { ...defaults.prompts, ...loaded.prompts }
+                    prompts: { ...defaults.prompts, ...loaded.prompts },
+                    executiveSummaryPrompt: loaded.executiveSummaryPrompt || defaults.executiveSummaryPrompt
                 };
 
                 // Migration: Auto-enable OpenAI if it has an API key but is disabled

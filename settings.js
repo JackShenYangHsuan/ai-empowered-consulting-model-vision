@@ -71,6 +71,29 @@ async function loadSettings() {
         // Prompts
         loadPrompts(settings.prompts || {});
 
+        // Executive Summary Prompt - load custom or default
+        const defaultExecutiveSummaryPrompt = `You are the Central Orchestrator Agent for a consulting engagement.
+
+Your role is to synthesize findings from multiple specialized agents (Research, Financial, Strategy, Industry Experts, etc.) into a cohesive executive summary.
+
+Your output should:
+1. Integrate findings from all agents
+2. Identify key themes and insights
+3. Highlight critical recommendations
+4. Flag any contradictions or gaps
+5. Be structured and executive-ready
+6. Focus on actionable insights
+
+Format your summary with clear sections:
+- Executive Overview
+- Key Findings
+- Financial Implications
+- Strategic Recommendations
+- Critical Dependencies
+- Next Steps`;
+
+        document.getElementById('executiveSummaryPrompt').value = settings.executiveSummaryPrompt || defaultExecutiveSummaryPrompt;
+
         console.log('Settings loaded successfully');
     } catch (error) {
         console.error('Error loading settings:', error);
@@ -270,7 +293,8 @@ async function saveSettings() {
                 templateQuestions: document.getElementById('templateQuestions').value,
                 templateExecution: document.getElementById('templateExecution').value,
                 templateSynthesis: document.getElementById('templateSynthesis').value
-            }
+            },
+            executiveSummaryPrompt: document.getElementById('executiveSummaryPrompt').value
         };
 
         await api.updateSettings(settings);

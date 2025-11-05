@@ -12,6 +12,8 @@ node_modules/
 # Environment files
 .env
 .env.local
+backend/.env
+backend/storage/settings.json
 
 # IDE
 .vscode/

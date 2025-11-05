@@ -23,10 +23,11 @@
 const { EventEmitter } = require('events');
 
 class Orchestrator extends EventEmitter {
-    constructor(aiService) {
+    constructor(aiService, settings = {}) {
         super();
-        
+
         this.aiService = aiService;
+        this.settings = settings;
         this.deliverables = new Map(); // agentId -> deliverable
         this.synthesisStatus = 'idle'; // idle, synthesizing, completed
         this.executiveSummary = null;
@@ -131,6 +132,12 @@ class Orchestrator extends EventEmitter {
      * Get system prompt for orchestrator
      */
     getSystemPrompt() {
+        // Use custom prompt if provided in settings
+        if (this.settings.executiveSummaryPrompt && this.settings.executiveSummaryPrompt.trim()) {
+            return this.settings.executiveSummaryPrompt;
+        }
+
+        // Default prompt
         return `You are the Central Orchestrator Agent for a consulting engagement.
 
 Your role is to synthesize findings from multiple specialized agents (Research, Financial, Strategy, Industry Experts, etc.) into a cohesive executive summary.

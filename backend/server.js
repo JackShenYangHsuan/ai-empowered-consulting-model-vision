@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, '../')));
 const contextManager = new ContextManager();
 const apiKey = config.getApiKey('openai');
 const aiService = new OpenAIService(apiKey, 'gpt-4o-mini', config);
-const agentManager = new AgentManager(contextManager, aiService);
+const agentManager = new AgentManager(contextManager, aiService, config);
 const mcpManager = new MCPManager();
 
 // WebSocket clients
@@ -360,7 +360,7 @@ app.get('/api/settings', (req, res) => {
 // Update settings
 app.put('/api/settings', (req, res) => {
     try {
-        const { apis, mcps, rag, prompts } = req.body;
+        const { apis, mcps, rag, prompts, executiveSummaryPrompt } = req.body;
 
         if (apis) {
             Object.keys(apis).forEach(service => {
@@ -388,6 +388,10 @@ app.put('/api/settings', (req, res) => {
 
         if (prompts) {
             config.set('prompts', prompts);
+        }
+
+        if (executiveSummaryPrompt !== undefined) {
+            config.set('executiveSummaryPrompt', executiveSummaryPrompt);
         }
 
         res.json({ message: 'Settings updated', success: true });
@@ -1897,7 +1901,7 @@ ${insightTexts.map((text, idx) => `${idx + 1}. ${text}`).join('\n')}
 `;
 
             const response = await aiService.chat({
-                systemPrompt: config.settings.prompts?.executiveSummary || 'You craft crisp executive summaries from consulting deliverables.',
+                systemPrompt: config.settings.executiveSummaryPrompt || config.settings.prompts?.executiveSummary || 'You craft crisp executive summaries from consulting deliverables.',
                 messages: [{ role: 'user', content: prompt }],
                 temperature: 0.4,
                 maxTokens: 600
@@ -2394,6 +2398,9 @@ API Endpoints:
 - GET  /api/settings
 - POST /api/documents/upload
 - GET  /api/orchestrator/status
+- POST /api/orchestrator/hypotheses
+- DELETE /api/orchestrator/hypotheses/:id
+- POST /api/orchestrator/hypotheses/:id/evaluate
 
 OpenAI configured: ${aiService.isConfigured()}
 Documents loaded: ${contextManager.getDocuments().length}

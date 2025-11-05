@@ -41,7 +41,7 @@
                                     <polyline points="10 9 9 9 8 9"></polyline>
                                 </svg>
                             </span>
-                            <h2 class="card-title">Project Context</h2>
+                            <h2 class="section-title">Project Context</h2>
                         </div>
                     </div>
                     <div class="context-form">
@@ -101,13 +101,7 @@
                                 <line x1="14.5" y1="13.5" x2="17.5" y2="17.5"/>
                             </svg>
                         </span>
-                        <h2 class="orchestrator-name-editable" id="orchestratorName" contenteditable="true" title="Click to edit name">Master</h2>
-                        <button class="btn-edit-name" onclick="editOrchestratorName()" title="Edit name">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                            </svg>
-                        </button>
+                        <h2 class="section-title orchestrator-name-editable" id="orchestratorName" contenteditable="true" title="Click to edit name">Master</h2>
                     </div>
                 </div>
 
@@ -310,7 +304,6 @@
             </div>
             <div class="detail-status">
                 <span class="progress-text" id="orchestratorDetailProgress">68% Complete</span>
-                <span class="eta-text" id="orchestratorDetailETA">ETA: 2:30 PM</span>
             </div>
         </header>
 
@@ -324,7 +317,6 @@
                             <!-- Executive summary content -->
                         </div>
                         <div class="summary-actions">
-                            <button class="btn-secondary" id="editSummaryBtn">Edit Summary</button>
                             <button class="btn-primary" id="regenerateSummaryBtn">Regenerate Summary</button>
                         </div>
                     </div>
@@ -354,7 +346,6 @@
                             <textarea id="newHypothesisInput" class="hypothesis-input" rows="4" placeholder="Capture a working hypothesis to pressure test against the insights..."></textarea>
                             <div class="hypothesis-actions">
                                 <button class="btn-primary" id="addHypothesisBtn">Test Hypothesis</button>
-                                <span class="hypothesis-status" id="hypothesisSaveStatus"></span>
                             </div>
                         </div>
                         <div class="hypothesis-list" id="hypothesisListDetail"></div>

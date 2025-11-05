@@ -1444,8 +1444,8 @@ async function initializeStep3() {
         return {
             title: stepElement.querySelector('.step-input')?.value || '',
             description: stepElement.querySelector('.step-textarea')?.value || '',
-            tools: Array.from(stepElement.querySelectorAll('.tool-badge') || [])
-                .map(badge => badge.textContent.trim()),
+            tools: Array.from(stepElement.querySelectorAll('.step-tool-checkbox:checked') || [])
+                .map(checkbox => checkbox.value),
             status: 'pending'
         };
     });
@@ -2013,7 +2013,7 @@ async function populateStep4() {
             insightsHtml = holisticInsights.map((insight, idx) => {
                 const insightText = insight.text || '';
                 const reported = insight.reported || false;
-                const reportBtnLabel = reported ? 'Reported ✓' : 'Report to Central Orchestrator';
+                const reportBtnLabel = reported ? 'Reported ✓' : 'Add to Main Key Insight';
                 const reportBtnDisabled = reported ? 'disabled' : '';
                 const reportBtnClass = reported ? 'btn-report-orchestrator reported' : 'btn-report-orchestrator';
 
@@ -2035,7 +2035,7 @@ async function populateStep4() {
             // Fallback: Display synthesized key findings from old data
             insightsHtml = executionState.synthesis.keyFindings.map((finding, idx) => {
                 const reported = finding.reported || false;
-                const reportBtnLabel = reported ? 'Reported ✓' : 'Report to Central Orchestrator';
+                const reportBtnLabel = reported ? 'Reported ✓' : 'Add to Main Key Insight';
                 const reportBtnDisabled = reported ? 'disabled' : '';
                 const reportBtnClass = reported ? 'btn-report-orchestrator reported' : 'btn-report-orchestrator';
 
@@ -2187,7 +2187,7 @@ async function populateStep4() {
                 summary = summary.replace(markdownLinkRegex, '').trim();
 
                 const reported = result.reported || false;
-                const reportBtnLabel = reported ? 'Reported ✓' : 'Report to Central Orchestrator';
+                const reportBtnLabel = reported ? 'Reported ✓' : 'Add to Main Key Insight';
                 const reportBtnDisabled = reported ? 'disabled' : '';
                 const reportBtnClass = reported ? 'btn-report-orchestrator reported' : 'btn-report-orchestrator';
 
@@ -2479,7 +2479,7 @@ window.reportToOrchestrator = async function(insightId) {
         console.error('❌ Error reporting insight:', error);
         if (reportBtn) {
             reportBtn.disabled = false;
-            reportBtn.textContent = 'Report to Central Orchestrator';
+            reportBtn.textContent = 'Add to Main Key Insight';
         }
         alert(`Failed to report insight: ${error.message}`);
     }

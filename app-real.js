@@ -545,7 +545,10 @@ const app = {
         if (this.executiveSummary && this.executiveSummary.length > 0) {
             summaryEl.innerHTML = `
                 <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
-                    ${this.executiveSummary.map(item => `<li>${this.escapeHtml(item)}</li>`).join('')}
+                    ${this.executiveSummary.map(item => {
+                        const cleanItem = item.startsWith('-') ? item.substring(1).trim() : item;
+                        return `<li>${this.escapeHtml(cleanItem)}</li>`;
+                    }).join('')}
                 </ul>
             `;
         } else if (this.reportedInsights && this.reportedInsights.length > 0) {
@@ -572,9 +575,6 @@ const app = {
             const agentId = insight.agentId || '';
             return `
                 <div class="insight-card" onclick="app.openAgentDetail('${agentId}')">
-                    <div class="insight-card-header">
-                        <span class="insight-agent-name">${agent}</span>
-                    </div>
                     <div class="insight-card-content">${text}</div>
                 </div>
             `;
@@ -600,12 +600,13 @@ const app = {
             const statusClass = status.toLowerCase().replace(/\s+/g, '-');
             // Keep original for display
             const statusDisplay = status.toUpperCase();
+
             return `
                 <div class="hypothesis-card" data-hypothesis-id="${id}">
                     <div class="hypothesis-card-header">
+                        <h5>${text}</h5>
                         <span class="hypothesis-status ${statusClass}">${statusDisplay}</span>
                     </div>
-                    <div class="hypothesis-card-content">${text}</div>
                 </div>
             `;
         }).join('');
@@ -776,7 +777,6 @@ const app = {
                     <div class="insight-header">
                         <div class="insight-header-left">
                             <span class="insight-agent">${agentName}</span>
-                            ${stepTitle ? `<span class="insight-step">${stepTitle}</span>` : ''}
                         </div>
                         <div class="insight-header-right">
                             <span class="insight-timestamp">${this.formatTimestamp(insight.timestamp || insight.reportedAt)}</span>
@@ -814,7 +814,7 @@ const app = {
         }
 
         list.innerHTML = this.hypotheses.map(hypothesis => {
-            const statusClass = `status-${(hypothesis.status || 'inconclusive').toLowerCase().replace(/\s+/g, '-')}`;
+            const statusClass = (hypothesis.status || 'inconclusive').toLowerCase().replace(/\s+/g, '-');
             const statusLabel = (hypothesis.status || 'inconclusive').replace(/[-_]/g, ' ').toUpperCase();
             const evidenceList = Array.isArray(hypothesis.evidence) && hypothesis.evidence.length > 0
                 ? `<ul class="hypothesis-evidence">${hypothesis.evidence.map(item => `<li>${this.escapeHtml(item)}</li>`).join('')}</ul>`
@@ -823,24 +823,21 @@ const app = {
             const reasoning = reasoningText ? `<div class="hypothesis-reasoning">${reasoningText}</div>` : '';
             const createdAt = hypothesis.createdAt ? new Date(hypothesis.createdAt).toLocaleString() : '';
             const evaluatedAt = hypothesis.lastEvaluatedAt ? `Last evaluated ${new Date(hypothesis.lastEvaluatedAt).toLocaleString()}` : 'Awaiting evaluation';
-            const confidence = typeof hypothesis.confidence === 'number' ? `Confidence ${(hypothesis.confidence * 100).toFixed(0)}%` : '';
+            const confidenceValue = typeof hypothesis.confidence === 'number' ? `${(hypothesis.confidence * 100).toFixed(0)}%` : '90%';
             const hypothesisText = this.escapeHtml(hypothesis.text);
 
             return `
-                <div class="hypothesis-item ${statusClass}">
-                    <div class="hypothesis-item-header">
-                        <div class="hypothesis-meta-block">
-                            <div class="hypothesis-text">${hypothesisText}</div>
-                            <div class="hypothesis-meta">${confidence}</div>
-                        </div>
-                        <div class="hypothesis-actions">
-                            <span class="status-badge ${statusClass}">${statusLabel}</span>
-                            <button class="btn-secondary" onclick="app.reEvaluateHypothesis('${hypothesis.id}')">Re-evaluate</button>
-                            <button class="hypothesis-delete-btn" data-hypothesis-id="${hypothesis.id}" title="Delete hypothesis">×</button>
-                        </div>
+                <div class="hypothesis-card" data-hypothesis-id="${hypothesis.id}">
+                    <div class="hypothesis-card-header">
+                        <h5>${hypothesisText}</h5>
+                        <button class="hypothesis-delete-btn" data-hypothesis-id="${hypothesis.id}" title="Delete hypothesis">×</button>
                     </div>
-                    ${reasoning}
-                    ${evidenceList}
+                    <div class="hypothesis-card-actions">
+                        <span class="hypothesis-confidence">Confidence ${confidenceValue}</span>
+                        <span class="hypothesis-status ${statusClass}">${statusLabel}</span>
+                        <button class="btn-secondary" onclick="app.reEvaluateHypothesis('${hypothesis.id}')">Re-evaluate</button>
+                    </div>
+                    ${reasoning || evidenceList ? `<div class="hypothesis-card-content">${reasoning}${evidenceList}</div>` : ''}
                 </div>
             `;
         }).join('');
@@ -988,13 +985,16 @@ const app = {
         if (!this.executiveSummary || this.executiveSummary.length === 0) {
             container.innerHTML = `
                 <div class="executive-summary-empty">
-                    Add key insights to generate a dot-dash executive summary.
+                    Generating executive summary...
                 </div>
             `;
         } else {
             container.innerHTML = `
                 <ul class="executive-summary-list">
-                    ${this.executiveSummary.map(item => `<li>${this.escapeHtml(item)}</li>`).join('')}
+                    ${this.executiveSummary.map(item => {
+                        const cleanItem = item.startsWith('-') ? item.substring(1).trim() : item;
+                        return `<li>${this.escapeHtml(cleanItem)}</li>`;
+                    }).join('')}
                 </ul>
             `;
         }
@@ -2782,10 +2782,9 @@ const logistics = {
     // Get results preview
     getResultsPreview(results) {
         if (typeof results === 'string') {
-            // Extract first few lines
+            // Parse and display all results
             const lines = results.split('\n').filter(line => line.trim());
-            const preview = lines.slice(0, 3).join(' ');
-            return preview.substring(0, 150) + (preview.length > 150 ? '...' : '');
+            return `<div style="margin-top: 8px; font-size: 13px; line-height: 1.6; color: var(--gray-700);">${lines.join('<br>')}</div>`;
         }
         return 'View results →';
     },
@@ -2842,4 +2841,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Header scroll behavior
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
 });

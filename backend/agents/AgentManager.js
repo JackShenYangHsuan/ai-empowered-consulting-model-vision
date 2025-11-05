@@ -25,15 +25,16 @@ const fs = require('fs');
 const path = require('path');
 
 class AgentManager extends EventEmitter {
-    constructor(contextManager, aiService) {
+    constructor(contextManager, aiService, config) {
         super();
-        
+
         this.agents = new Map(); // agentId -> Agent instance
         this.contextManager = contextManager;
         this.aiService = aiService;
-        
-        // Create orchestrator
-        this.orchestrator = new Orchestrator(aiService);
+        this.config = config;
+
+        // Create orchestrator with settings
+        this.orchestrator = new Orchestrator(aiService, config.settings);
         
         // Setup orchestrator event listeners
         this.orchestrator.on('synthesisUpdated', (data) => {
