@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Create Agent</title>
+</head>
+<body>
+    <h1>Test Create Agent Function</h1>
+    <button onclick="testCreateAgent()">Test if createAgent is available</button>
+    <div id="result"></div>
+
+    <script>
+        function testCreateAgent() {
+            const result = document.getElementById('result');
+            result.innerHTML = '';
+            
+            if (typeof window.createAgent === 'function') {
+                result.innerHTML = '<p style="color: green;">✅ createAgent is AVAILABLE and is a function!</p>';
+            } else {
+                result.innerHTML = '<p style="color: red;">❌ createAgent is NOT available. Type: ' + typeof window.createAgent + '</p>';
+            }
+        }
+        
+        // Auto-test on load
+        setTimeout(testCreateAgent, 100);
+    </script>
+</body>
+</html>

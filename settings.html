@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="view active">
+        <!-- Status Message (Fixed at top) -->
+        <div id="statusMessage" class="status-message-fixed" style="display: none;"></div>
+
+        <header class="header">
+            <div class="header-left">
+                <a href="index.html" class="btn-back" aria-label="Back to Dashboard">←</a>
+                <h1 class="logo">SETTINGS</h1>
+            </div>
+            <div class="header-right">
+                <button class="btn-primary" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </header>
+
+        <main class="main-content settings-content">
+            <!-- Tabs -->
+            <div class="settings-tabs">
+                <button class="tab-button active" data-tab="api">API Configuration</button>
+                <button class="tab-button" data-tab="prompts">Prompts</button>
+            </div>
+
+            <!-- API Configuration Tab -->
+            <div id="apiTab" class="tab-content active">
+            <!-- API Configuration -->
+            <section class="settings-section">
+                <h2 class="settings-title">API Configuration</h2>
+                <p class="settings-subtitle">Configure your AI service API keys. Keys are stored securely on the backend.</p>
+
+                <!-- OpenAI -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div>
+                            <h3>OpenAI</h3>
+                            <p class="settings-description">GPT-4 for agent reasoning and execution</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="openaiEnabled" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="form-group">
+                            <label for="openaiKey">API Key</label>
+                            <div class="input-with-button">
+                                <input type="password" id="openaiKey" class="form-input" placeholder="sk-...">
+                                <button class="btn-secondary" id="testOpenAI">Test</button>
+                            </div>
+                            <small class="form-hint">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="openaiModel">Model</label>
+                            <select id="openaiModel" class="form-select">
+                                <option value="gpt-4o-mini">GPT-4o Mini (Cheapest)</option>
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-4-turbo-preview">GPT-4 Turbo</option>
+                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anthropic -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div>
+                            <h3>Anthropic Claude</h3>
+                            <p class="settings-description">Claude for advanced reasoning (optional)</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="anthropicEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="form-group">
+                            <label for="anthropicKey">API Key</label>
+                            <div class="input-with-button">
+                                <input type="password" id="anthropicKey" class="form-input" placeholder="sk-ant-...">
+                                <button class="btn-secondary" id="testAnthropic">Test</button>
+                            </div>
+                            <small class="form-hint">Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="anthropicModel">Model</label>
+                            <select id="anthropicModel" class="form-select">
+                                <option value="claude-3-opus-20240229">Claude 3 Opus</option>
+                                <option value="claude-3-sonnet-20240229">Claude 3 Sonnet</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exa AI -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div>
+                            <h3>Exa AI</h3>
+                            <p class="settings-description">Web search for research agents (optional)</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="exaEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-card-body">
+                        <div class="form-group">
+                            <label for="exaKey">API Key</label>
+                            <div class="input-with-button">
+                                <input type="password" id="exaKey" class="form-input" placeholder="exa_...">
+                                <button class="btn-secondary" id="testExa">Test</button>
+                            </div>
+                            <small class="form-hint">Get your API key from <a href="https://exa.ai/" target="_blank">Exa AI</a></small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MCP Configuration -->
+            <section class="settings-section">
+                <h2 class="settings-title">MCP Endpoints</h2>
+                <p class="settings-subtitle">Model Context Protocol servers for extended capabilities</p>
+
+                <div class="settings-card">
+                    <div class="settings-card-body">
+                        <div id="mcpList" class="mcp-list">
+                            <!-- MCP endpoints will be added here -->
+                        </div>
+                        <button class="btn-secondary btn-full-width" id="addMCPBtn">
+                            + Add MCP Endpoint
+                        </button>
+                    </div>
+                </div>
+            </section>
+            </div>
+            <!-- End API Configuration Tab -->
+
+            <!-- Prompts Tab -->
+            <div id="promptsTab" class="tab-content">
+                <section class="settings-section">
+                    <h2 class="settings-title">System Prompts</h2>
+                    <p class="settings-subtitle">Customize the system prompts used by agents</p>
+
+                    <!-- Workflow Prompts -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div>
+                                <h3>Agent Workflow Prompts</h3>
+                                <p class="settings-description">System prompts used during agent execution phases</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label for="promptWorkPlan">Work Plan Generation</label>
+                                <textarea id="promptWorkPlan" class="form-textarea" rows="3" placeholder="Generate work plan..."></textarea>
+                                <small class="form-hint">System prompt for generating initial work plans</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="promptQuestions">Clarifying Questions</label>
+                                <textarea id="promptQuestions" class="form-textarea" rows="3" placeholder="Generate clarifying questions..."></textarea>
+                                <small class="form-hint">System prompt for generating clarifying questions</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="promptExecution">Step Execution</label>
+                                <textarea id="promptExecution" class="form-textarea" rows="3" placeholder="Execute steps..."></textarea>
+                                <small class="form-hint">System prompt for executing work plan steps</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Message Templates -->
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div>
+                                <h3>User Message Templates</h3>
+                                <p class="settings-description">Detailed instruction templates sent to the AI (use {objective}, {description}, {tools} as placeholders)</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group">
+                                <label for="templateWorkPlan">Work Plan Generation Template</label>
+                                <textarea id="templateWorkPlan" class="form-textarea" rows="10" placeholder="You are an expert AI agent planner..."></textarea>
+                                <small class="form-hint">Template for work plan generation instructions. Available variables: {objective}, {description}, {tools}, {mcpInstructions}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="templateQuestions">Clarifying Questions Template</label>
+                                <textarea id="templateQuestions" class="form-textarea" rows="8" placeholder="Based on this agent objective..."></textarea>
+                                <small class="form-hint">Template for clarifying questions instructions. Available variables: {objective}, {description}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="templateExecution">Step Execution Template</label>
+                                <textarea id="templateExecution" class="form-textarea" rows="12" placeholder="You are an AI agent executing a research/analysis step..."></textarea>
+                                <small class="form-hint">Template for step execution instructions. Available variables: {context}, {mcpInstructions}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="templateSynthesis">Insights Synthesis Template</label>
+                                <textarea id="templateSynthesis" class="form-textarea" rows="12" placeholder="You are an expert analyst extracting key findings..."></textarea>
+                                <small class="form-hint">Template for synthesizing all execution results into key insights. Available variables: {objective}, {description}, {clarifyingAnswers}, {resultsContext}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reset Button -->
+                    <div class="settings-actions">
+                        <button class="btn-secondary" id="resetPromptsBtn">Reset to Defaults</button>
+                    </div>
+                </section>
+            </div>
+            <!-- End Prompts Tab -->
+        </main>
+    </div>
+
+    <!-- MCP Modal -->
+    <div id="mcpModal" class="modal">
+        <div class="modal-dialog" role="dialog" aria-labelledby="mcpModalTitle" aria-modal="true">
+            <div class="modal-header">
+                <h2 id="mcpModalTitle">Add MCP Endpoint</h2>
+                <button class="modal-close" id="mcpModalClose" aria-label="Close modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field">
+                    <label for="mcpName">Label</label>
+                    <input type="text" id="mcpName" class="modal-input" placeholder="Reducto MCP" required>
+                    <span class="modal-hint">A friendly name to identify this MCP server</span>
+                </div>
+                <div class="modal-field">
+                    <label for="mcpEndpoint">Server URL</label>
+                    <input type="url" id="mcpEndpoint" class="modal-input" placeholder="https://mcp-server.example.com" required>
+                    <span class="modal-hint">The full URL where your MCP server is hosted</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="mcpModalCancel">Cancel</button>
+                <button class="btn-primary" id="addMCPConfirm">Add Endpoint</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="api-client.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

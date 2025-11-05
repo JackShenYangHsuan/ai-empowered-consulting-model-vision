@@ -1,0 +1,30 @@
+Loaded 1 agent configurations
+
+╔══════════════════════════════════════════════════════════════════════╗
+║               Command Center Backend Started                         ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Server running on: http://localhost:3003
+WebSocket: ws://localhost:3003
+
+API Endpoints:
+- GET  /api/agents
+- POST /api/agents
+- GET  /api/settings
+- POST /api/documents/upload
+- GET  /api/orchestrator/status
+
+OpenAI configured: true
+Documents loaded: 0
+
+Ready to orchestrate agents!
+    
+[AI] Generating work plan for: ai sever
+[AI] Generated 8 work plan steps
+[AI] Generated 5 clarifying questions
+[AI] Generating work plan for: ai server
+[AI] Generated 8 work plan steps
+[AI] Generated 5 clarifying questions
+[AI] Generating work plan for: ai server
+[AI] Generated 8 work plan steps
+[AI] Generated 5 clarifying questions

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center - AI Consulting Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=1762228007">
+</head>
+<body>
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="view active">
+        <header class="header">
+            <!-- Centered logo at top -->
+            <div style="text-align: center; padding: 12px 0 20px 0;">
+                <h1 class="logo">COMMAND CENTER</h1>
+            </div>
+            <!-- Settings button below -->
+            <div style="display: flex; justify-content: flex-end; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb;">
+                <a href="settings.html" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <span>Settings</span>
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Top Row: Project Context and Central Orchestrator -->
+            <div class="dashboard-top-row" id="dashboardTopRow">
+                <!-- Project Context Card -->
+                <div class="project-context-card" id="projectContextCard">
+                    <div class="card-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="orchestrator-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </span>
+                            <h2 class="card-title">Project Context</h2>
+                        </div>
+                    </div>
+                    <div class="context-form">
+                        <div class="form-group">
+                            <label class="context-label">Key Question</label>
+                            <textarea
+                                id="keyQuestion"
+                                class="context-textarea"
+                                rows="3"
+                                placeholder="What is the main question or problem you're trying to solve?"
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="context-label">Constraints</label>
+                            <textarea
+                                id="constraints"
+                                class="context-textarea"
+                                rows="3"
+                                placeholder="Any limitations, requirements, or boundaries to consider..."
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="context-label">Other Context</label>
+                            <textarea
+                                id="otherContext"
+                                class="context-textarea"
+                                rows="3"
+                                placeholder="Any other relevant context, background information, or considerations..."
+                            ></textarea>
+                        </div>
+                        <div class="context-actions">
+                            <button class="btn-primary" id="saveContextBtn">Save Context</button>
+                            <span class="context-status" id="contextStatus"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resizable Divider -->
+                <div class="resize-divider" id="topRowDivider">
+                    <div class="resize-handle"></div>
+                </div>
+
+                <!-- Central Orchestrator Card -->
+                <div class="orchestrator-card" id="orchestratorCard">
+                <div class="orchestrator-header">
+                    <div class="orchestrator-title">
+                        <span class="orchestrator-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"/>
+                                <circle cx="5" cy="5" r="1.5"/>
+                                <circle cx="19" cy="5" r="1.5"/>
+                                <circle cx="5" cy="19" r="1.5"/>
+                                <circle cx="19" cy="19" r="1.5"/>
+                                <line x1="9.5" y1="10.5" x2="6.5" y2="6.5"/>
+                                <line x1="14.5" y1="10.5" x2="17.5" y2="6.5"/>
+                                <line x1="9.5" y1="13.5" x2="6.5" y2="17.5"/>
+                                <line x1="14.5" y1="13.5" x2="17.5" y2="17.5"/>
+                            </svg>
+                        </span>
+                        <h2 class="orchestrator-name-editable" id="orchestratorName" contenteditable="true" title="Click to edit name">Master</h2>
+                        <button class="btn-edit-name" onclick="editOrchestratorName()" title="Edit name">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Executive Summary Section (Full Width) -->
+                <div class="orchestrator-section-full">
+                    <h3 class="section-header">Executive Summary</h3>
+                    <div class="section-content" id="executiveSummary">
+                        <p class="empty-state">No summary available yet.</p>
+                    </div>
+                </div>
+
+                <!-- Key Insights and Hypothesis Row -->
+                <div class="orchestrator-sections-row">
+                    <!-- Key Insights Section -->
+                    <div class="orchestrator-section">
+                        <h3 class="section-header">Key Insights</h3>
+                        <div class="section-content" id="keyInsightsList">
+                            <p class="empty-state">No insights reported yet.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hypothesis Section -->
+                    <div class="orchestrator-section">
+                        <h3 class="section-header">Hypothesis</h3>
+                        <div class="section-content" id="hypothesisList">
+                            <p class="empty-state">No hypotheses yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- End dashboard-top-row -->
+
+            <!-- Section Divider -->
+            <div class="section-divider"></div>
+
+            <!-- Agents Section -->
+            <div class="agents-section">
+                <div class="agents-section-header">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="orchestrator-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                        <h3 class="section-title">Agents</h3>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span class="agent-count-badge"><span id="activeAgentCount">0</span> Active</span>
+                        <button class="btn-primary" id="newAgentBtn">+ New Agent</button>
+                    </div>
+                </div>
+
+                <div class="orchestrator-stats">
+                    <div class="stat">
+                        <span class="stat-label">Completed</span>
+                        <span class="stat-value" id="completedCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Executing</span>
+                        <span class="stat-value" id="executingCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Draft</span>
+                        <span class="stat-value" id="draftCount">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Key Insights</span>
+                        <span class="stat-value" id="orchestratorInsightCount">0</span>
+                    </div>
+                </div>
+
+                <!-- Bulk Actions Toolbar -->
+                <div id="bulkActionsToolbar" class="bulk-actions-toolbar" style="display: none;">
+                    <div class="bulk-actions-left">
+                        <span class="bulk-actions-count" id="bulkActionsCount" style="display: none;"><span id="selectedAgentCount">0</span> selected</span>
+                        <button class="btn-bulk-action" id="selectAllBtn" onclick="app.selectAllAgents()">Select All</button>
+                        <button class="btn-bulk-action" id="deselectAllBtn" onclick="app.deselectAllAgents()" style="display: none;">Deselect All</button>
+                    </div>
+                    <div class="bulk-actions-right" id="bulkActionsRight" style="display: none;">
+                        <button class="btn-bulk-delete" onclick="app.bulkDeleteAgents()">
+                            Delete Selected
+                        </button>
+                    </div>
+                </div>
+
+                <div class="agents-grid" id="agentsGrid">
+                    <!-- Agent cards will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Section Divider -->
+            <div class="section-divider"></div>
+
+            <!-- Logistics Section -->
+            <div class="logistics-section">
+                <div class="logistics-section-header">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="orchestrator-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </span>
+                        <h3 class="section-title">Logistics</h3>
+                    </div>
+                </div>
+
+                <div class="logistics-content">
+                    <!-- Food Delivery Card -->
+                    <div class="logistics-card">
+                        <div class="logistics-card-header">
+                            <h4>Food Delivery</h4>
+                            <span class="logistics-badge">Uber Eats</span>
+                        </div>
+                        <div class="logistics-form">
+                            <div class="form-group">
+                                <label class="logistics-label">Delivery Address</label>
+                                <div class="address-input-group">
+                                    <input
+                                        type="text"
+                                        id="logisticsAddress"
+                                        class="logistics-input"
+                                        placeholder="Enter your delivery address..."
+                                    />
+                                    <button class="btn-locate" id="locateBtn" title="Use my location">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                            <line x1="12" y1="2" x2="12" y2="4"></line>
+                                            <line x1="12" y1="20" x2="12" y2="22"></line>
+                                            <line x1="2" y1="12" x2="4" y2="12"></line>
+                                            <line x1="20" y1="12" x2="22" y2="12"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="logistics-label">What are you craving?</label>
+                                <input
+                                    type="text"
+                                    id="logisticsFoodCraving"
+                                    class="logistics-input"
+                                    placeholder="e.g., pizza, sushi, burger..."
+                                />
+                            </div>
+                            <div class="logistics-actions">
+                                <button class="btn-primary" id="searchFoodBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <span>Search Options</span>
+                                </button>
+                                <span class="logistics-status" id="logisticsStatus"></span>
+                            </div>
+                        </div>
+                        <div class="logistics-results" id="logisticsResults"></div>
+                    </div>
+
+                    <!-- Search History -->
+                    <div class="logistics-card" style="margin-top: 20px;">
+                        <div class="logistics-card-header">
+                            <h4>Recent Searches</h4>
+                            <button class="btn-secondary" onclick="logistics.loadSearchHistory()" style="font-size: 12px; padding: 6px 12px;">
+                                Refresh
+                            </button>
+                        </div>
+                        <div id="logisticsHistory"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+    <!-- Orchestrator View -->
+    <div id="orchestratorView" class="view">
+        <header class="detail-header">
+            <button class="btn-back" id="orchestratorBackBtn" aria-label="Back to Dashboard">←</button>
+            <div class="detail-title">
+                <span class="orchestrator-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/>
+                        <circle cx="5" cy="5" r="1.5"/>
+                        <circle cx="19" cy="5" r="1.5"/>
+                        <circle cx="5" cy="19" r="1.5"/>
+                        <circle cx="19" cy="19" r="1.5"/>
+                        <line x1="9.5" y1="10.5" x2="6.5" y2="6.5"/>
+                        <line x1="14.5" y1="10.5" x2="17.5" y2="6.5"/>
+                        <line x1="9.5" y1="13.5" x2="6.5" y2="17.5"/>
+                        <line x1="14.5" y1="13.5" x2="17.5" y2="17.5"/>
+                    </svg>
+                </span>
+                <h2 class="orchestrator-name-editable" id="orchestratorNameDetail" contenteditable="true" title="Click to edit name">CENTRAL ORCHESTRATOR</h2>
+            </div>
+            <div class="detail-status">
+                <span class="progress-text" id="orchestratorDetailProgress">68% Complete</span>
+                <span class="eta-text" id="orchestratorDetailETA">ETA: 2:30 PM</span>
+            </div>
+        </header>
+
+        <main class="orchestrator-content">
+            <div class="orchestrator-grid" id="orchestratorGrid">
+                <!-- Column 1: Executive Summary -->
+                <div class="orchestrator-column" id="col1">
+                    <div class="executive-summary-section">
+                        <h3 class="section-title">EXECUTIVE SUMMARY</h3>
+                        <div class="executive-summary" id="executiveSummaryDetail">
+                            <!-- Executive summary content -->
+                        </div>
+                        <div class="summary-actions">
+                            <button class="btn-secondary" id="editSummaryBtn">Edit Summary</button>
+                            <button class="btn-primary" id="regenerateSummaryBtn">Regenerate Summary</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider 1 -->
+                <div class="column-divider" id="divider1"></div>
+
+                <!-- Column 2: Key Insights -->
+                <div class="orchestrator-column" id="col2">
+                    <div class="key-insights-section">
+                        <h3 class="section-title">KEY INSIGHTS (<span id="insightsCount">0</span>)</h3>
+                        <div class="insights-grid" id="insightsGrid">
+                            <!-- Key insights will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider 2 -->
+                <div class="column-divider" id="divider2"></div>
+
+                <!-- Column 3: Hypotheses -->
+                <div class="orchestrator-column" id="col3">
+                    <div class="hypothesis-section">
+                        <h3 class="section-title">HYPOTHESES</h3>
+                        <div class="hypothesis-entry">
+                            <textarea id="newHypothesisInput" class="hypothesis-input" rows="4" placeholder="Capture a working hypothesis to pressure test against the insights..."></textarea>
+                            <div class="hypothesis-actions">
+                                <button class="btn-primary" id="addHypothesisBtn">Test Hypothesis</button>
+                                <span class="hypothesis-status" id="hypothesisSaveStatus"></span>
+                            </div>
+                        </div>
+                        <div class="hypothesis-list" id="hypothesisListDetail"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="modal-content">
+            <h3>Delete Agent</h3>
+            <p id="deleteConfirmMessage">Are you sure you want to delete this agent?</p>
+            <p class="modal-warning">This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="deleteCancelBtn">Cancel</button>
+                <button class="btn-danger" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script defer src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script defer src="firebase-config.js?v=1762228008"></script>
+    <script src="api-client.js?v=1762228008"></script>
+    <script src="app-real.js?v=1762241516553"></script>
+
+    <!-- Version logging -->
+    <script>
+        console.log('📦 Dashboard loaded at:', new Date().toISOString());
+        console.log('📦 Script version: 1762241516553 - Fixed agentDB -> teammateDB in bulkDeleteAgents');
+    </script>
+</body>
+</html>

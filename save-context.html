@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Project Context to Firebase</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0F1419;
+            color: #E5E7EB;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #3B82F6;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: #1A1F29;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #10B981;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        button {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #2563EB;
+        }
+        button:disabled {
+            background: #6B7280;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: #10B98133;
+            color: #10B981;
+            border: 1px solid #10B981;
+        }
+        .status.error {
+            background: #EF444433;
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+        .status.info {
+            background: #3B82F633;
+            color: #3B82F6;
+            border: 1px solid #3B82F6;
+        }
+        pre {
+            background: #0F1419;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Save Project Context to Firebase</h1>
+
+    <div class="section">
+        <h2>Project Context Summary</h2>
+        <p><strong>Key Question:</strong></p>
+        <p style="color: #9CA3AF; font-size: 14px;">
+            What problem does Command Center solve? Command Center enables consultants to delegate
+            complex, multi-faceted projects to AI agents that work autonomously and collaboratively,
+            reducing partner time investment to just 2 daily check-ins.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Constraints</h2>
+        <ul style="color: #9CA3AF; font-size: 14px; line-height: 1.8;">
+            <li>Must support 10+ concurrent agents without performance degradation</li>
+            <li>All API keys must be stored securely</li>
+            <li>Real-time updates required for all agent progress</li>
+            <li>Mobile-responsive design required</li>
+            <li>Must work offline for cached data</li>
+        </ul>
+    </div>
+
+    <button id="saveBtn" onclick="saveProjectContext()">
+        💾 Save to Firebase
+    </button>
+
+    <div id="status"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+
+    <script>
+        const projectContextData = {
+            keyQuestion: "What problem does Command Center solve? Command Center enables consultants to delegate complex, multi-faceted projects to AI agents that work autonomously and collaboratively, reducing partner time investment to just 2 daily check-ins while maintaining full transparency and quality control through an orchestrator system.",
+
+            constraints: `- Must support 10+ concurrent agents without performance degradation
+- All API keys must be stored securely (encrypted in settings.json or .env)
+- Real-time updates required for all agent progress
+- Mobile-responsive design required
+- Must work offline for cached data (localStorage fallback)`,
+
+            otherContext: `# Command Center - AI Consulting Platform
+
+## Overview
+A Palantir-style dark mode interface for managing multiple AI agents that work collaboratively to complete consulting projects.
+
+## Key Features
+- Multi-agent orchestration system
+- Real-time progress tracking with WebSockets
+- Firebase integration for data persistence
+- Settings management for API keys (OpenAI, Anthropic, Exa AI)
+- PDF upload and processing for context injection
+- Central orchestrator that synthesizes agent outputs
+- MCP (Model Context Protocol) server support
+
+## Architecture
+- Frontend: Vanilla JavaScript, HTML5, CSS3 (Palantir-inspired dark theme)
+- Backend: Node.js/Express with WebSocket support
+- Database: Firebase Firestore
+- Services: OpenAI, Anthropic (Claude), Exa AI integrations
+
+## Agent Types
+1. Research Agent - Market research, data gathering, competitive analysis
+2. Financial Agent - Financial modeling, DCF analysis, projections
+3. Strategy Agent - Strategic recommendations, synthesis
+4. Industry Expert - Domain-specific expertise
+5. Slide Production - Presentation deck creation
+6. Meeting Prep - Client meeting preparation
+7. Custom - User-defined specialized agents
+
+## Technical Stack
+- Node.js/Express backend (port 3003)
+- Firebase Firestore for persistence
+- WebSocket for real-time updates
+- OpenAI GPT-4, Anthropic Claude APIs
+- Exa AI for research
+- PDF processing with RAG
+
+## Design System
+- Background: #0F1419 (Deep dark blue)
+- Cards: #1A1F29 (Dark slate)
+- Accents: Blue (#3B82F6), Green (#10B981), Yellow (#F59E0B), Red (#EF4444)
+- Font: Inter
+
+## Key Files
+- server.js - Express server + WebSocket + agent management
+- firebase-config.js - Firebase/Firestore configuration
+- agent-create.html/js - Agent creation interface
+- settings.html/js - API key management
+- /backend/agents/ - Agent execution logic
+- /backend/services/ - External API wrappers
+
+## Current Development Focus
+- Enhancing agent execution with better context management
+- Improving real-time WebSocket updates
+- Integrating MCP servers for extended capabilities
+- Building agent creation UI with better UX`
+        };
+
+        async function saveProjectContext() {
+            const statusDiv = document.getElementById('status');
+            const saveBtn = document.getElementById('saveBtn');
+
+            try {
+                saveBtn.disabled = true;
+                statusDiv.className = 'status info';
+                statusDiv.innerHTML = '⏳ Initializing Firebase...';
+
+                // Initialize Firebase if not already done
+                if (!initFirebase()) {
+                    throw new Error('Failed to initialize Firebase');
+                }
+
+                statusDiv.innerHTML = '📝 Saving project context...';
+
+                // Use the projectContextDB from firebase-config.js
+                await projectContextDB.save(projectContextData);
+
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `
+                    ✅ Project context saved successfully to Firebase!<br><br>
+                    <strong>Saved to:</strong> Firestore collection "projectContext" → document "global"<br><br>
+                    <strong>Data saved:</strong><br>
+                    • Key Question: ${projectContextData.keyQuestion.substring(0, 80)}...<br>
+                    • Constraints: ${projectContextData.constraints.split('\n').length} items<br>
+                    • Other Context: ${projectContextData.otherContext.length} characters
+                `;
+
+            } catch (error) {
+                console.error('Error saving context:', error);
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `
+                    ❌ Error saving project context:<br>
+                    ${error.message}<br><br>
+                    <strong>Please check:</strong><br>
+                    1. Firebase SDK is loaded correctly<br>
+                    2. You have internet connection<br>
+                    3. Firestore rules allow writes
+                `;
+            } finally {
+                saveBtn.disabled = false;
+            }
+        }
+
+        // Auto-initialize on page load
+        window.addEventListener('load', () => {
+            initFirebase();
+            document.getElementById('status').className = 'status info';
+            document.getElementById('status').innerHTML = '✓ Firebase initialized. Ready to save context.';
+        });
+    </script>
+</body>
+</html>

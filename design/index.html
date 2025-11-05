@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center - Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="showcase-header">
+        <div class="showcase-container">
+            <a href="../index.html" class="btn-back">
+                <span class="back-arrow">←</span>
+                <span>Back to Command Center</span>
+            </a>
+            <h1 class="showcase-title">Design System</h1>
+            <p class="showcase-subtitle">A comprehensive guide to Command Center's visual language</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="showcase-nav">
+        <div class="nav-content">
+            <a href="#colors" class="nav-link">Colors</a>
+            <a href="#typography" class="nav-link">Typography</a>
+            <a href="#spacing" class="nav-link">Spacing</a>
+            <a href="#buttons" class="nav-link">Buttons</a>
+            <a href="#cards" class="nav-link">Cards</a>
+            <a href="#forms" class="nav-link">Forms</a>
+            <a href="#badges" class="nav-link">Badges</a>
+            <a href="#animations" class="nav-link">Animations</a>
+        </div>
+    </nav>
+
+    <main class="showcase-main">
+        <div class="showcase-container">
+
+            <!-- Colors Section -->
+            <section id="colors" class="showcase-section">
+                <h2 class="section-title">Color Palette</h2>
+                <p class="section-description">Our color system provides semantic meaning and visual hierarchy</p>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Primary Colors</h3>
+                    <div class="color-grid">
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #0A0E27;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Deep Navy</span>
+                                <span class="color-hex">#0A0E27</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #1A1F3A;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Midnight Blue</span>
+                                <span class="color-hex">#1A1F3A</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #3B7EFF;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Electric Blue</span>
+                                <span class="color-hex">#3B7EFF</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #00D9FF;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Cyan Accent</span>
+                                <span class="color-hex">#00D9FF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Status Colors</h3>
+                    <div class="color-grid">
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #00E5B8;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Success Green</span>
+                                <span class="color-hex">#00E5B8</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #FFB020;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Warning Amber</span>
+                                <span class="color-hex">#FFB020</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #FF6B6B;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Error Coral</span>
+                                <span class="color-hex">#FF6B6B</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #A78BFA;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Info Purple</span>
+                                <span class="color-hex">#A78BFA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">Neutral Scale</h3>
+                    <div class="color-grid color-grid-wide">
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #111827;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Near Black</span>
+                                <span class="color-hex">#111827</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #1F2937;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Charcoal</span>
+                                <span class="color-hex">#1F2937</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #6B7280;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Slate</span>
+                                <span class="color-hex">#6B7280</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #9CA3AF;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Silver</span>
+                                <span class="color-hex">#9CA3AF</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #E5E7EB;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Cloud</span>
+                                <span class="color-hex">#E5E7EB</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #F3F4F6;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Mist</span>
+                                <span class="color-hex">#F3F4F6</span>
+                            </div>
+                        </div>
+                        <div class="color-card">
+                            <div class="color-swatch" style="background: #FFFFFF; border: 1px solid #E5E7EB;"></div>
+                            <div class="color-info">
+                                <span class="color-name">Pure White</span>
+                                <span class="color-hex">#FFFFFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Typography Section -->
+            <section id="typography" class="showcase-section">
+                <h2 class="section-title">Typography</h2>
+                <p class="section-description">Type scale based on Inter font family with modular scale 1.25</p>
+
+                <div class="type-examples">
+                    <div class="type-example">
+                        <div class="type-label">Display XL · 48px / 700</div>
+                        <div class="type-display-xl">Inference is everything</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Display L · 36px / 700</div>
+                        <div class="type-display-l">The platform for mission-critical inference</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Heading 1 · 28px / 600</div>
+                        <div class="type-h1">Dedicated deployments for high-scale workloads</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Heading 2 · 20px / 600</div>
+                        <div class="type-h2">Build with Model APIs</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Heading 3 · 16px / 600</div>
+                        <div class="type-h3">Applied performance research</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Body Large · 15px / 400</div>
+                        <div class="type-body-large">Serve open-source, custom, and fine-tuned AI models on infra purpose-built for production. Scale seamlessly in our cloud or yours.</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Body Regular · 14px / 400</div>
+                        <div class="type-body-regular">Test new workloads, prototype new products, or evaluate the latest models with production-grade performance — instantly.</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Body Small · 13px / 400</div>
+                        <div class="type-body-small">Scale workloads across any region and any cloud (in our cloud or yours), with blazing-fast cold starts and 99.99% uptime out of the box.</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Caption · 12px / 500</div>
+                        <div class="type-caption">Last evaluated 3 hours ago · Confidence 90%</div>
+                    </div>
+                    <div class="type-example">
+                        <div class="type-label">Label · 11px / 700 / UPPERCASE</div>
+                        <div class="type-label-text">PRODUCTION</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spacing Section -->
+            <section id="spacing" class="showcase-section">
+                <h2 class="section-title">Spacing System</h2>
+                <p class="section-description">8px base unit for consistent rhythm and alignment</p>
+
+                <div class="spacing-examples">
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 4px;"></div>
+                        <span class="spacing-label">4px · Micro</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 8px;"></div>
+                        <span class="spacing-label">8px · Base</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 12px;"></div>
+                        <span class="spacing-label">12px · Small</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 16px;"></div>
+                        <span class="spacing-label">16px · Medium</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 24px;"></div>
+                        <span class="spacing-label">24px · Large</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 32px;"></div>
+                        <span class="spacing-label">32px · XL</span>
+                    </div>
+                    <div class="spacing-item">
+                        <div class="spacing-box" style="width: 48px;"></div>
+                        <span class="spacing-label">48px · XXL</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buttons Section -->
+            <section id="buttons" class="showcase-section">
+                <h2 class="section-title">Buttons</h2>
+                <p class="section-description">Interactive elements with clear visual hierarchy and feedback</p>
+
+                <div class="button-showcase">
+                    <div class="button-group">
+                        <h3 class="subsection-title">Primary Button</h3>
+                        <div class="button-examples">
+                            <button class="btn-primary">Get Started</button>
+                            <button class="btn-primary btn-large">Start Deploying</button>
+                            <button class="btn-primary btn-small">Test Hypothesis</button>
+                            <button class="btn-primary" disabled>Disabled State</button>
+                        </div>
+                        <p class="button-usage">Use for primary actions and calls-to-action</p>
+                    </div>
+
+                    <div class="button-group">
+                        <h3 class="subsection-title">Secondary Button</h3>
+                        <div class="button-examples">
+                            <button class="btn-secondary">Learn More</button>
+                            <button class="btn-secondary btn-large">Re-evaluate</button>
+                            <button class="btn-secondary btn-small">Delete</button>
+                            <button class="btn-secondary" disabled>Disabled State</button>
+                        </div>
+                        <p class="button-usage">Use for secondary actions and less emphasis</p>
+                    </div>
+
+                    <div class="button-group">
+                        <h3 class="subsection-title">Ghost Button</h3>
+                        <div class="button-examples">
+                            <button class="btn-ghost">Cancel</button>
+                            <button class="btn-ghost btn-large">Talk to an Engineer</button>
+                            <button class="btn-ghost btn-small">Close</button>
+                            <button class="btn-ghost" disabled>Disabled State</button>
+                        </div>
+                        <p class="button-usage">Use for tertiary actions and subtle interactions</p>
+                    </div>
+
+                    <div class="button-group">
+                        <h3 class="subsection-title">Danger Button</h3>
+                        <div class="button-examples">
+                            <button class="btn-danger">Delete Agent</button>
+                            <button class="btn-danger btn-large">Remove All</button>
+                            <button class="btn-danger btn-small">Clear</button>
+                        </div>
+                        <p class="button-usage">Use for destructive actions requiring confirmation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cards Section -->
+            <section id="cards" class="showcase-section">
+                <h2 class="section-title">Cards</h2>
+                <p class="section-description">Elevated surfaces for grouping related content</p>
+
+                <div class="card-showcase">
+                    <div class="card-group">
+                        <h3 class="subsection-title">Standard Card</h3>
+                        <div class="demo-card">
+                            <h4 class="demo-card-title">Project Context</h4>
+                            <p class="demo-card-text">Key questions and constraints that guide the overall direction of the project and inform agent decisions.</p>
+                            <button class="btn-secondary btn-small">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="card-group">
+                        <h3 class="subsection-title">Emphasized Card</h3>
+                        <div class="demo-card-emphasized">
+                            <h4 class="demo-card-title">Central Orchestrator</h4>
+                            <p class="demo-card-text">Synthesizes insights from all agents and coordinates the overall research strategy.</p>
+                            <button class="btn-primary btn-small">Configure</button>
+                        </div>
+                    </div>
+
+                    <div class="card-group">
+                        <h3 class="subsection-title">Status Cards</h3>
+                        <div class="status-cards-grid">
+                            <div class="demo-card-success">
+                                <h5 class="status-card-title">Supported</h5>
+                                <p class="status-card-text">Hypothesis validated by multiple data points</p>
+                            </div>
+                            <div class="demo-card-warning">
+                                <h5 class="status-card-title">Pending</h5>
+                                <p class="status-card-text">Awaiting additional evidence</p>
+                            </div>
+                            <div class="demo-card-error">
+                                <h5 class="status-card-title">Rejected</h5>
+                                <p class="status-card-text">Evidence contradicts hypothesis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forms Section -->
+            <section id="forms" class="showcase-section">
+                <h2 class="section-title">Form Elements</h2>
+                <p class="section-description">Input components for data collection and user interaction</p>
+
+                <div class="form-showcase">
+                    <div class="form-group-demo">
+                        <label class="form-label">Text Input</label>
+                        <input type="text" class="form-input" placeholder="Enter agent name...">
+                        <span class="form-hint">Helper text appears below the input</span>
+                    </div>
+
+                    <div class="form-group-demo">
+                        <label class="form-label">Textarea</label>
+                        <textarea class="form-textarea" rows="4" placeholder="Describe the agent's objective..."></textarea>
+                        <span class="form-hint">Supports multi-line input</span>
+                    </div>
+
+                    <div class="form-group-demo">
+                        <label class="form-label">Select Dropdown</label>
+                        <select class="form-select">
+                            <option>GPT-4o Mini (Cheapest)</option>
+                            <option>GPT-4 Turbo</option>
+                            <option>Claude 3 Opus</option>
+                            <option>Claude 3 Sonnet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-demo">
+                        <label class="form-label">Toggle Switch</label>
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle1" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Enable API integration</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-demo">
+                        <label class="form-label">Checkbox</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Web search capabilities</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span>Data analysis tools</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked>
+                                <span>Document processing</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Badges Section -->
+            <section id="badges" class="showcase-section">
+                <h2 class="section-title">Status Badges</h2>
+                <p class="section-description">Compact indicators for states, categories, and metadata</p>
+
+                <div class="badge-showcase">
+                    <div class="badge-group">
+                        <h3 class="subsection-title">Status Badges</h3>
+                        <div class="badge-examples">
+                            <span class="badge badge-success">SUPPORTED</span>
+                            <span class="badge badge-warning">PENDING</span>
+                            <span class="badge badge-error">REJECTED</span>
+                            <span class="badge badge-info">RE-EVALUATE</span>
+                            <span class="badge badge-neutral">INCONCLUSIVE</span>
+                        </div>
+                    </div>
+
+                    <div class="badge-group">
+                        <h3 class="subsection-title">Agent Type Badges</h3>
+                        <div class="badge-examples">
+                            <span class="badge badge-primary">RESEARCH</span>
+                            <span class="badge badge-primary">FINANCIAL</span>
+                            <span class="badge badge-primary">STRATEGY</span>
+                            <span class="badge badge-primary">INDUSTRY</span>
+                        </div>
+                    </div>
+
+                    <div class="badge-group">
+                        <h3 class="subsection-title">Progress Badges</h3>
+                        <div class="badge-examples">
+                            <span class="badge badge-active">RUNNING</span>
+                            <span class="badge badge-success">COMPLETED</span>
+                            <span class="badge badge-neutral">QUEUED</span>
+                            <span class="badge badge-warning">PAUSED</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animations Section -->
+            <section id="animations" class="showcase-section">
+                <h2 class="section-title">Animations & Effects</h2>
+                <p class="section-description">Motion and micro-interactions that bring the interface to life</p>
+
+                <div class="animation-showcase">
+                    <div class="animation-group">
+                        <h3 class="subsection-title">Loading States</h3>
+                        <div class="animation-demo">
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+                            <div class="skeleton skeleton-text" style="width: 60%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="animation-group">
+                        <h3 class="subsection-title">Glassmorphism</h3>
+                        <div class="glass-demo">
+                            <div class="glass-card">
+                                <h4>Frosted Glass Effect</h4>
+                                <p>Backdrop blur with transparency</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animation-group">
+                        <h3 class="subsection-title">Gradient Border Animation</h3>
+                        <div class="animation-demo">
+                            <div class="gradient-border-card">
+                                <h4>Animated Border</h4>
+                                <p>Rotating gradient effect</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animation-group">
+                        <h3 class="subsection-title">Hover Interactions</h3>
+                        <div class="interaction-grid">
+                            <div class="interactive-card">
+                                <h5>Scale Up</h5>
+                                <p>Subtle growth on hover</p>
+                            </div>
+                            <div class="interactive-card">
+                                <h5>Lift Effect</h5>
+                                <p>Elevation with shadow</p>
+                            </div>
+                            <div class="interactive-card">
+                                <h5>Glow Effect</h5>
+                                <p>Border glow on hover</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Elements -->
+            <section id="special" class="showcase-section">
+                <h2 class="section-title">Special Elements</h2>
+                <p class="section-description">Unique components that add personality</p>
+
+                <div class="special-showcase">
+                    <div class="special-group">
+                        <h3 class="subsection-title">Dot-Dash Divider</h3>
+                        <div class="divider-demo"></div>
+                    </div>
+
+                    <div class="special-group">
+                        <h3 class="subsection-title">Progress Indicator</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 68%;"></div>
+                        </div>
+                        <p class="progress-text">68% Complete · ETA: 2:30 PM</p>
+                    </div>
+
+                    <div class="special-group">
+                        <h3 class="subsection-title">Empty State</h3>
+                        <div class="empty-state-demo">
+                            <div class="empty-icon">📋</div>
+                            <h4 class="empty-title">No agents yet</h4>
+                            <p class="empty-text">Create your first agent to get started</p>
+                            <button class="btn-primary btn-small">Create Agent</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="showcase-footer">
+        <div class="showcase-container">
+            <p>Command Center Design System · Built with attention to detail</p>
+        </div>
+    </footer>
+
+    <script src="showcase.js"></script>
+</body>
+</html>

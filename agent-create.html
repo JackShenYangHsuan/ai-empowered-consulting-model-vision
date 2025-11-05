@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Agent - Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="agent-create.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header with Logo -->
+        <header style="margin-bottom: 24px;">
+            <!-- Logo at top -->
+            <div style="text-align: center; padding: 12px 0;">
+                <h1 class="logo" onclick="window.location.href='index.html'" style="cursor: pointer; margin: 0;">
+                    COMMAND CENTER
+                </h1>
+            </div>
+            <!-- Back button below -->
+            <div style="padding: 20px 0; border-bottom: 1px solid #e5e7eb;">
+                <button onclick="window.location.href='index.html'" class="btn-secondary" aria-label="Back to Dashboard">
+                    ← Back to Dashboard
+                </button>
+            </div>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="steps-header">
+            <div class="step-item active" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-info">
+                    <div class="step-title">Work Plan</div>
+                    <div class="step-subtitle">Define objectives</div>
+                </div>
+            </div>
+            <div class="step-item" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-info">
+                    <div class="step-title">Clarify & Approve</div>
+                    <div class="step-subtitle">Review & confirm</div>
+                </div>
+            </div>
+            <div class="step-item" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-info">
+                    <div class="step-title">Execution</div>
+                    <div class="step-subtitle">Run agent tasks</div>
+                </div>
+            </div>
+            <div class="step-item" data-step="4">
+                <div class="step-circle">4</div>
+                <div class="step-info">
+                    <div class="step-title">Synthesize</div>
+                    <div class="step-subtitle">Review results</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Work Plan -->
+        <div class="step-content active" id="step1">
+            <div class="step-header">
+                <h1>Define Objectives</h1>
+            </div>
+            <p class="step-description">Set up your agent's goals, tools, and approach</p>
+
+            <div class="form-section">
+                <label class="form-label">Objective</label>
+                <input 
+                    type="text" 
+                    class="form-input" 
+                    placeholder="What is the main goal of this agent? (e.g., Analyze customer feedback and generate insights)"
+                >
+                <p class="form-hint">Define the primary goal your agent should achieve</p>
+            </div>
+
+            <div class="form-section">
+                <label class="form-label">Description</label>
+                <textarea 
+                    class="form-textarea" 
+                    rows="6" 
+                    placeholder="Provide a detailed description of what the agent will do, including any specific requirements or constraints..."
+                ></textarea>
+                <p class="form-hint">Explain how the agent should accomplish its objective</p>
+            </div>
+
+            <div class="form-section">
+                <label class="form-label">Tool Access</label>
+
+                <div class="tools-list" id="toolsList">
+                    <!-- Web Search Tool -->
+                    <div class="tool-item">
+                        <label class="tool-toggle">
+                            <input type="checkbox" checked data-tool="exa-search" class="tool-checkbox">
+                            <span class="tool-name">Web Search (Exa)</span>
+                        </label>
+                        <p class="tool-description">Search the web for real-time information and research</p>
+                    </div>
+
+                    <!-- Excel Generation Tool -->
+                    <div class="tool-item">
+                        <label class="tool-toggle">
+                            <input type="checkbox" data-tool="excel-generation" class="tool-checkbox">
+                            <span class="tool-name">Excel Generation</span>
+                        </label>
+                        <p class="tool-description">Create downloadable Excel spreadsheets with formulas and data</p>
+                    </div>
+
+                    <!-- MCP Servers will be dynamically loaded here -->
+                    <div id="mcpToolsList"></div>
+                </div>
+            </div>
+
+            <div class="step-footer">
+                <button class="btn-primary" onclick="createAgent()">Create Agent</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Clarify & Approve -->
+        <div class="step-content" id="step2">
+            <div class="step-header">
+                <h1>Clarify & Approve Workplan</h1>
+                <div class="phase-label">Phase 2 of 4</div>
+            </div>
+            <p class="step-description">Review and edit your step-by-step workplan, then answer clarifying questions</p>
+
+            <div class="workplan-section">
+                <div class="section-header">
+                    <h3>Step-by-Step Workplan</h3>
+                    <button class="btn-add-step">+ Add Step</button>
+                </div>
+
+                <div class="workplan-steps">
+                    <div class="workplan-step">
+                        <div class="step-handle">::</div>
+                        <div class="step-number">1</div>
+                        <div class="step-content-box">
+                            <div class="step-label">Step</div>
+                            <input type="text" class="step-input" value="Gather customer feedback data">
+                            <div class="step-label">Description</div>
+                            <textarea class="step-textarea" rows="2">Collect feedback from support tickets, surveys, and social media using Web Search tool</textarea>
+                        </div>
+                        <button type="button" class="btn-delete">×</button>
+                    </div>
+
+                    <div class="workplan-step">
+                        <div class="step-handle">::</div>
+                        <div class="step-number">2</div>
+                        <div class="step-content-box">
+                            <div class="step-label">Step</div>
+                            <input type="text" class="step-input" value="Analyze sentiment and themes">
+                            <div class="step-label">Description</div>
+                            <textarea class="step-textarea" rows="2">Process the collected data using Data Analyzer to identify patterns and sentiment</textarea>
+                        </div>
+                        <button type="button" class="btn-delete">×</button>
+                    </div>
+
+                    <div class="workplan-step">
+                        <div class="step-handle">::</div>
+                        <div class="step-number">3</div>
+                        <div class="step-content-box">
+                            <div class="step-label">Step</div>
+                            <input type="text" class="step-input" value="Generate insights and recommendations">
+                            <div class="step-label">Description</div>
+                            <textarea class="step-textarea" rows="2">Synthesize findings into actionable insights with prioritized recommendations</textarea>
+                        </div>
+                        <button type="button" class="btn-delete">×</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clarification-section">
+                <div class="section-header">
+                    <h3>Clarification Questions</h3>
+                    <div class="questions-progress">0 of 3 answered</div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-icon">?</div>
+                    <div class="question-content">
+                        <div class="question-text">Should the agent prioritize speed or accuracy?</div>
+                        <textarea class="answer-input" placeholder="Enter your answer..." rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-icon">?</div>
+                    <div class="question-content">
+                        <div class="question-text">What should happen if external API calls fail?</div>
+                        <textarea class="answer-input" placeholder="Enter your answer..." rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-icon">?</div>
+                    <div class="question-content">
+                        <div class="question-text">Are there any budget constraints for API usage?</div>
+                        <textarea class="answer-input" placeholder="Enter your answer..." rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-footer">
+                <button class="btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn-primary" onclick="startExecutionFromStep2()">Start Execution</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Execution -->
+        <div class="step-content" id="step3">
+            <div class="step-header">
+                <h1>Execution</h1>
+                <div class="phase-label">Phase 3 of 4</div>
+            </div>
+            <p class="step-description">Monitor your agent as it executes the planned tasks</p>
+
+            <div class="progress-section">
+                <h3>Overall Progress</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 67%"></div>
+                    </div>
+                    <div class="progress-text">2 of 3 tasks completed</div>
+                </div>
+
+                <div class="status-cards">
+                    <div class="status-card completed">
+                        <div class="status-icon">✓</div>
+                        <div class="status-content">
+                            <div class="status-label">Completed</div>
+                            <div class="status-value">2</div>
+                        </div>
+                    </div>
+                    <div class="status-card running">
+                        <div class="status-icon">⟳</div>
+                        <div class="status-content">
+                            <div class="status-label">Running</div>
+                            <div class="status-value">0</div>
+                        </div>
+                    </div>
+                    <div class="status-card pending">
+                        <div class="status-icon">○</div>
+                        <div class="status-content">
+                            <div class="status-label">Pending</div>
+                            <div class="status-value">1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="log-section">
+                <h3>Execution Log</h3>
+                
+                <div class="log-entry completed">
+                    <div class="log-icon">✓</div>
+                    <div class="log-content">
+                        <div class="log-title">Research and gather requirements</div>
+                        <div class="log-message">Successfully gathered 45 requirements from documentation</div>
+                    </div>
+                    <div class="log-time">10:23:15</div>
+                </div>
+
+                <div class="log-entry completed">
+                    <div class="log-icon">✓</div>
+                    <div class="log-content">
+                        <div class="log-title">Define success metrics</div>
+                        <div class="log-message">Defined 8 key performance indicators</div>
+                    </div>
+                    <div class="log-time">10:24:32</div>
+                </div>
+            </div>
+
+            <div class="step-footer">
+                <button class="btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn-primary" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Synthesize -->
+        <div class="step-content" id="step4">
+            <div class="step-header">
+                <h1>Synthesize</h1>
+                <div class="phase-label">Phase 4 of 4</div>
+            </div>
+            <p class="step-description">Review results and insights from the agent execution</p>
+
+            <!-- Simple content area - populated by JavaScript -->
+            <div class="summary-text">
+                <p style="color: #666; text-align: center; padding: 40px 20px;">
+                    Execution results will appear here after running the agent...
+                </p>
+            </div>
+
+            <div class="step-footer">
+                <button class="btn-secondary" onclick="prevStep()">Previous</button>
+                <button class="btn-primary" onclick="window.location.href='index.html'">Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3>Creating Agent</h3>
+            <p>Setting up your agent and generating work plan...</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script defer src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+    
+    <!-- App Scripts -->
+    <script defer src="firebase-config.js?v=1762242222817"></script>
+    <script defer src="api-client.js?v=1762242222817"></script>
+    <script defer src="agent-create.js?v=1762242222817"></script>
+
+    <!-- Cache-busting verification -->
+    <script>
+        console.log('🔄 Page loaded at:', new Date().toISOString());
+        console.log('📦 Script version: 1762242222817 - Added interactive tool selection in Step 2 workplan');
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (typeof window.createAgent === 'function') {
+                    console.log('✅ createAgent is ready!');
+                } else {
+                    console.error('❌ createAgent NOT FOUND! Clear cache and refresh.');
+                    alert('ERROR: JavaScript not loading correctly.\n\nPlease do a HARD REFRESH:\n\nMac: Cmd+Shift+R\nWindows: Ctrl+Shift+R\n\nOr clear your browser cache.');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

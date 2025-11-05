@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Execution - Command Center</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="execution-container">
+        <!-- Header -->
+        <div class="execution-header">
+            <div class="execution-nav">
+                <button class="nav-btn" id="backToDashboard" aria-label="Back to Dashboard">←</button>
+                <h1 class="execution-title">Agent Execution</h1>
+                <div class="execution-actions">
+                    <button class="btn-secondary" id="pauseBtn">Pause</button>
+                    <button class="btn-danger" id="stopBtn">Stop</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agent Overview Bar -->
+        <div class="agent-overview-bar">
+            <div class="agent-info">
+                <div class="agent-avatar" id="agentAvatar">
+                    <span id="agentIcon">RS</span>
+                </div>
+                <div class="agent-details">
+                    <h2 id="agentName" class="agent-name">Research Agent</h2>
+                    <p id="agentFocus" class="agent-focus">Analyzing market trends</p>
+                </div>
+            </div>
+            <div class="execution-status">
+                <div class="status-indicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Initializing...</span>
+                </div>
+                <div class="step-counter">
+                    <span id="currentStepText">Step 1 of 6</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="execution-main">
+            <!-- Left Panel: Current Step -->
+            <div class="execution-panel left-panel">
+                <div class="panel-header">
+                    <h3>Current Step</h3>
+                    <div class="step-number-badge" id="currentStepBadge">
+                        <span id="currentStepNumber">1</span>
+                    </div>
+                </div>
+                <div class="current-step-content" id="currentStepContent">
+                    <div class="step-title" id="stepTitle">Gather industry reports</div>
+                    <div class="step-description" id="stepDescription">
+                        Collecting and analyzing recent industry reports to identify market trends...
+                    </div>
+                    <div class="step-progress-section">
+                        <div class="progress-header">
+                            <span>Step Progress</span>
+                            <span id="stepProgressText">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="stepProgressFill"></div>
+                        </div>
+                    </div>
+                    <div class="step-details" id="stepDetails">
+                        <div class="detail-item">
+                            <span class="detail-label">Started:</span>
+                            <span id="stepStartTime">--:--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Estimated:</span>
+                            <span id="stepEstimate">--:--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Panel: Live Output -->
+            <div class="execution-panel center-panel">
+                <div class="panel-header">
+                    <h3>Live Output</h3>
+                    <div class="output-controls">
+                        <button class="btn-icon" id="scrollToBottom">↓</button>
+                        <button class="btn-icon" id="clearOutput">Clear</button>
+                    </div>
+                </div>
+                <div class="output-content" id="outputContent">
+                    <div class="output-entry" id="initialOutput">
+                        <span class="output-timestamp">14:30:12</span>
+                        <span class="output-text">Agent initialized successfully. Starting step execution...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Steps Overview -->
+            <div class="execution-panel right-panel">
+                <div class="panel-header">
+                    <h3>Execution Plan</h3>
+                    <div class="overall-progress">
+                        <span id="overallProgressText">0%</span>
+                    </div>
+                </div>
+                <div class="steps-overview" id="stepsOverview">
+                    <!-- Steps will be populated dynamically -->
+                </div>
+                <div class="execution-summary">
+                    <div class="summary-item completed">
+                        <span class="summary-label">Completed:</span>
+                        <span class="summary-value" id="completedCount">0</span>
+                    </div>
+                    <div class="summary-item active">
+                        <span class="summary-label">Active:</span>
+                        <span class="summary-value" id="activeCount">0</span>
+                    </div>
+                    <div class="summary-item pending">
+                        <span class="summary-label">Pending:</span>
+                        <span class="summary-value" id="pendingCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Status Bar -->
+        <div class="execution-footer">
+            <div class="status-bar-left">
+                <span class="status-item" id="agentType">Research Agent</span>
+                <span class="status-item" id="lastUpdate">Last updated: Just now</span>
+            </div>
+            <div class="status-bar-right">
+                <span class="status-item" id="connectionStatus">Connected</span>
+                <span class="status-item" id="serverTime">14:30:12</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="execution.js"></script>
+</body>
+</html>

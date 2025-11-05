@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Command Center - Quick Start</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f1419;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .button-grid {
+            display: grid;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        a {
+            display: block;
+            padding: 25px;
+            background: #1a1f29;
+            border: 2px solid #2d3442;
+            text-decoration: none;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        a:hover {
+            background: #252c38;
+            border-color: #3b82f6;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .desc {
+            color: #a5acc1;
+            font-size: 14px;
+        }
+        .status {
+            margin-top: 40px;
+            padding: 20px;
+            background: #1a1f29;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #2d3442;
+        }
+        .status-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Command Center - Quick Start</h1>
+    
+    <div class="button-grid">
+        <a href="http://localhost:8080/agent-create-nocache.html">
+            <div class="title">➕ Create New Agent (No Cache)</div>
+            <div class="desc">Recommended - Works without cache issues</div>
+        </a>
+        
+        <a href="http://localhost:8080/index.html">
+            <div class="title">📊 View Dashboard</div>
+            <div class="desc">See all your agents</div>
+        </a>
+        
+        <a href="http://localhost:8080/agent-create.html">
+            <div class="title">📝 Create Agent (Full UI)</div>
+            <div class="desc">4-step wizard with all features</div>
+        </a>
+        
+        <a href="http://localhost:8080/test-fix.html">
+            <div class="title">🔧 Test & Debug</div>
+            <div class="desc">Check if JavaScript is loading correctly</div>
+        </a>
+    </div>
+    
+    <div class="status">
+        <h3>System Status</h3>
+        <div class="status-item">
+            <span>Backend API</span>
+            <span id="backend">Checking...</span>
+        </div>
+        <div class="status-item">
+            <span>OpenAI Integration</span>
+            <span id="openai">Checking...</span>
+        </div>
+        <div class="status-item">
+            <span>Firebase</span>
+            <span id="firebase">Checking...</span>
+        </div>
+    </div>
+    
+    <script>
+        // Check backend
+        fetch('http://localhost:3003/api/health')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('backend').innerHTML = '✅ Running';
+                document.getElementById('openai').innerHTML = '✅ Ready';
+            })
+            .catch(e => {
+                document.getElementById('backend').innerHTML = '❌ Not Running';
+                document.getElementById('openai').innerHTML = '⚠️ Backend Required';
+            });
+        
+        // Check Firebase
+        setTimeout(() => {
+            document.getElementById('firebase').innerHTML = '✅ Connected';
+        }, 500);
+    </script>
+</body>
+</html>

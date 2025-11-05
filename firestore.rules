@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Allow read/write access to agents collection
+    match /agents/{agentId} {
+      allow read, write: if true;
+    }
+
+    // Allow read/write access to project context
+    match /projectContext/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Allow read/write access to Uber Eats searches
+    match /uberEatsSearches/{searchId} {
+      allow read, write: if true;
+    }
+
+    // Allow read/write access to insights collection
+    match /insights/{insightId} {
+      allow read, write: if true;
+    }
+
+    // Allow read/write access to hypotheses collection
+    match /hypotheses/{hypothesisId} {
+      allow read, write: if true;
+    }
+
+    // Allow read/write access to orchestrator collection
+    match /orchestrator/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

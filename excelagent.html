@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Agent - Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: color 0.15s ease;
+        }
+
+        .back-link:hover {
+            color: #1d4ed8;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #1f2937;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            resize: vertical;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn:hover:not(:disabled) {
+            background-color: #1d4ed8;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn:active:not(:disabled) {
+            background-color: #1e40af;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            background-color: #059669;
+        }
+
+        .btn-download:hover:not(:disabled) {
+            background-color: #047857;
+        }
+
+        .btn-download:active:not(:disabled) {
+            background-color: #065f46;
+        }
+
+        .status-message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .status-message.loading {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .status-message.success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        .status-message.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .result-section {
+            display: none;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 24px;
+        }
+
+        .result-section.visible {
+            display: block;
+        }
+
+        .result-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .result-message {
+            padding: 16px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 16px;
+            white-space: pre-wrap;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .examples {
+            margin-top: 24px;
+        }
+
+        .examples-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .example-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .example-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .example-btn:hover {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link" aria-label="Back to Dashboard">←</a>
+
+        <div class="header">
+            <h1>📊 Excel Agent</h1>
+            <p>Generate professional Excel models with AI</p>
+        </div>
+
+        <div class="card">
+            <form id="excelForm">
+                <div class="form-group">
+                    <label class="label" for="promptInput">
+                        What Excel model would you like to create?
+                    </label>
+                    <textarea
+                        id="promptInput"
+                        class="textarea"
+                        placeholder="Example: Create a financial model for a SaaS startup with monthly revenue projections, expense breakdown, and cash flow analysis for the next 12 months"
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="generateBtn">
+                    <span id="btnText">Generate Excel File</span>
+                    <span id="btnSpinner" class="spinner" style="display: none;"></span>
+                </button>
+
+                <div id="statusMessage" style="display: none;"></div>
+            </form>
+
+            <div id="resultSection" class="result-section">
+                <h3 class="result-title">Result</h3>
+                <div id="resultMessage" class="result-message"></div>
+                <a id="downloadBtn" class="btn btn-download" style="display: none;">
+                    <span>📊</span>
+                    <span>Download Excel File</span>
+                </a>
+            </div>
+
+            <div class="examples">
+                <p class="examples-title">Example prompts:</p>
+                <div class="example-buttons">
+                    <button type="button" class="example-btn" onclick="setExample('Create a financial model for a SaaS startup with monthly revenue projections, expense breakdown, and cash flow analysis for the next 12 months')">
+                        SaaS Financial Model
+                    </button>
+                    <button type="button" class="example-btn" onclick="setExample('Build a marketing KPI dashboard with metrics for social media, email campaigns, and conversion rates')">
+                        Marketing Dashboard
+                    </button>
+                    <button type="button" class="example-btn" onclick="setExample('Create a project budget tracker with task breakdown, cost allocation, and timeline milestones')">
+                        Project Budget
+                    </button>
+                    <button type="button" class="example-btn" onclick="setExample('Generate a sales pipeline tracker with lead stages, conversion probabilities, and revenue forecasts')">
+                        Sales Pipeline
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3003';
+        const form = document.getElementById('excelForm');
+        const promptInput = document.getElementById('promptInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const statusMessage = document.getElementById('statusMessage');
+        const resultSection = document.getElementById('resultSection');
+        const resultMessage = document.getElementById('resultMessage');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        function setExample(text) {
+            promptInput.value = text;
+            promptInput.focus();
+        }
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+        }
+
+        function hideStatus() {
+            statusMessage.style.display = 'none';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const prompt = promptInput.value.trim();
+            if (!prompt) return;
+
+            // Reset UI
+            generateBtn.disabled = true;
+            btnText.textContent = 'Generating...';
+            btnSpinner.style.display = 'inline-block';
+            resultSection.classList.remove('visible');
+            downloadBtn.style.display = 'none';
+            showStatus('Creating your Excel file... This may take a moment.', 'loading');
+
+            try {
+                const response = await fetch(`${API_BASE}/api/agents/execute-with-excel`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        agentId: 'excel-test',
+                        stepIndex: 0,
+                        userPrompt: prompt,
+                        objective: 'Generate Excel file',
+                        description: prompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate Excel file');
+                }
+
+                const data = await response.json();
+
+                console.log('Response:', data);
+
+                // Show result
+                resultSection.classList.add('visible');
+                resultMessage.textContent = data.message || 'Excel file created successfully!';
+
+                // Show download button if file was generated
+                if (data.downloadUrl && data.filename) {
+                    downloadBtn.href = `${API_BASE}${data.downloadUrl}`;
+                    downloadBtn.download = data.filename;
+                    downloadBtn.style.display = 'inline-flex';
+                    showStatus('✓ Excel file generated successfully!', 'success');
+                } else {
+                    showStatus('Excel file created but download link not available', 'error');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showStatus(`Error: ${error.message}`, 'error');
+            } finally {
+                // Reset button
+                generateBtn.disabled = false;
+                btnText.textContent = 'Generate Excel File';
+                btnSpinner.style.display = 'none';
+            }
+        });
+
+        // Log page load
+        console.log('Excel Agent page loaded');
+        console.log('API Base:', API_BASE);
+    </script>
+</body>
+</html>
