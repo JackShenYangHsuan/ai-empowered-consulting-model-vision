@@ -87,7 +87,7 @@ agentManager.on('triggerPageNavigation', (data) => {
         agentId: data.agentId,
         targetPage: data.targetPage,
         currentStep: data.currentStep,
-        url: `/command-center/execution.html?agentId=${data.agentId}&step=${data.currentStep}`
+        url: `/execution.html?agentId=${data.agentId}&step=${data.currentStep}`
     });
 });
 
