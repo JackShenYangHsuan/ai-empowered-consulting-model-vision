@@ -1,10 +1,10 @@
-# Command Center
+# AI-Empowered Consulting Model Vision
 
 AI consulting platform with multi-agent orchestration.
 
 ## Demo
 
-[![Command Center Demo](https://img.youtube.com/vi/BGmVL73kLDM/maxresdefault.jpg)](https://www.youtube.com/watch?v=BGmVL73kLDM)
+[![Demo](https://img.youtube.com/vi/BGmVL73kLDM/maxresdefault.jpg)](https://www.youtube.com/watch?v=BGmVL73kLDM)
 
 ## What It Does
 
@@ -26,8 +26,8 @@ AI consulting platform with multi-agent orchestration.
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/JackShenYangHsuan/command-center.git
-cd command-center/backend
+git clone https://github.com/JackShenYangHsuan/ai-empowered-consulting-model-vision.git
+cd ai-empowered-consulting-model-vision/backend
 npm install
 
 # 2. Configure API keys
