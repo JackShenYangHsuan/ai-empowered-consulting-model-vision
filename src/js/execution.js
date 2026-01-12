@@ -40,7 +40,7 @@ class ExecutionPage {
     setupEventListeners() {
         // Navigation
         document.getElementById('backToDashboard').addEventListener('click', () => {
-            window.location.href = '/index.html';
+            window.location.href = '../index.html';
         });
 
         // Execution controls
@@ -64,7 +64,7 @@ class ExecutionPage {
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                window.location.href = '/index.html';
+                window.location.href = '../index.html';
             }
             if (e.ctrlKey && e.key === 'p') {
                 this.togglePause();
@@ -523,7 +523,7 @@ class ExecutionPage {
         errorDiv.innerHTML = `
             <h3>Error</h3>
             <p>${message}</p>
-            <button onclick="window.location.href='/command-center/index.html'">Return to Dashboard</button>
+            <button onclick="window.location.href='../index.html'">Return to Dashboard</button>
         `;
         content.appendChild(errorDiv);
     }

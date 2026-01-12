@@ -1187,7 +1187,7 @@ const app = {
     
     async openAgentDetail(agentId) {
         // Redirect to the 4-step agent creation/detail page with the agent ID
-        window.location.href = `agent-create.html?agentId=${agentId}`;
+        window.location.href = `pages/agent-create.html?agentId=${agentId}`;
     },
 
     toggleAgentMenu(event, agentId) {
@@ -2144,12 +2144,12 @@ const app = {
         if (newAgentBtn) {
             newAgentBtn.addEventListener('click', () => {
                 console.log('New Agent button clicked!');
-                window.location.href = 'agent-create.html';
+                window.location.href = 'pages/agent-create.html';
             });
         }
         if (addAgentBtn) {
             addAgentBtn.addEventListener('click', () => {
-                window.location.href = 'agent-create.html';
+                window.location.href = 'pages/agent-create.html';
             });
         }
         if (modalClose) modalClose.addEventListener('click', () => this.closeModal());

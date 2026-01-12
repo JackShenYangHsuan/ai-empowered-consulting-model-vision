@@ -532,7 +532,7 @@ async function loadExistingTeammate(teammateId) {
         if (!teammate) {
             console.log(`⚠️ Agent ${teammateId} has been deleted or doesn't exist`);
             alert(`This agent has been deleted.\n\nYou'll be redirected to the dashboard.`);
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
             return; // Stop execution
         }
 
@@ -699,7 +699,7 @@ window.prevStep = function() {
 }
 
 window.goBack = function() {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
 }
 
 window.skipClarifications = function() {
